@@ -14,7 +14,7 @@ phases:
        - echo Installing codebuild-extras...
        - curl -fsSL https://raw.githubusercontent.com/bridgecrewio/aws-codebuild-extras/master/install >> extras.sh
        - . ./extras.sh
-       - wget --header "Authorization: Basic $(echo -n $PCC_USER:$PCC_PASS | base64 | tr -d '\n')" "$PCC_CONSOLE_URL/api/v1/util/twistcli"
+       - curl -k -u $PC_USER:$PC_PASS --output ./twistcli https://$PC_CONSOLE/api/v1/util/twistcli
        - chmod a+x ./twistcli
   pre_build:
     commands:
@@ -28,7 +28,7 @@ phases:
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   scan:
     commands:
-      - ./twistcli images scan --docker-address http://docker:2375 --address $PCC_CONSOLE_URL --user $PCC_USER --password $PCC_PASS --details $IMAGE_REPO_NAME:$IMAGE_TAG
+      - ./twistcli images scan --docker-address http://docker:2375 --address $PC_CONSOLE_URL --user $PC_USER --password $PC_PASS --details $IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
       - echo Build completed on `date`
