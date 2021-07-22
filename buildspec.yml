@@ -28,7 +28,7 @@ phases:
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
   post_build:
     commands:
-      - ./twistcli images scan --docker-address http://docker:2375 --address $PC_CONSOLE_URL --user $PC_USER --password $PC_PASS --details $IMAGE_REPO_NAME:$IMAGE_TAG
+      - ./twistcli images scan --address $PC_CONSOLE_URL --user $PC_USER --password $PC_PASS --details $IMAGE_REPO_NAME:$IMAGE_TAG
       - echo Build completed on `date`
       - echo Pushing the Docker image...
       - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
