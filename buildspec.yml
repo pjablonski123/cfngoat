@@ -14,7 +14,7 @@ phases:
        - echo Installing codebuild-extras...
        - curl -fsSL https://raw.githubusercontent.com/bridgecrewio/aws-codebuild-extras/master/install >> extras.sh
        - . ./extras.sh
-       - curl -k -u $PC_USER:$PC_PASS --output ./twistcli https://$PC_CONSOLE/api/v1/util/twistcli
+       - curl -k -u $PC_USER:$PC_PASS --output ./twistcli https://$PC_CONSOLE_URL/api/v1/util/twistcli
        - chmod a+x ./twistcli
   pre_build:
     commands:
